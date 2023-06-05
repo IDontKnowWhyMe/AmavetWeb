@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <title>Domovská stránka</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        #logo {
+            width: 3%;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+            width: 60%;
+            font-size: 72px;
+            margin: 50px auto 0px;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #141414;
+            color: rgb(212, 212, 212);
+        }
+
+        .navbar {
+            background-color: #212122cb;
+        }
+
+        .navbar-nav li:hover>ul.dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+        }
+
+        .image-gallery {
+            width: 70%;
+            margin: 50px auto 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 30px;
+        }
+
+        .image-gallery img {
+            opacity: 0.65;
+            background-color: #1e1e1f;
+            padding: 15px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .image-gallery img:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            transition: .2s ease-in-out;
+        }
+
+        .full-img {
+            background: rgba(0, 0, 0, 0.65);
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 80vw;
+            background-color: rgb(17, 17, 17);
+            position: relative;
+            padding: 30px;
+        }
+
+        .container img {
+            display: flex;
+        }
+
+        .comments {
+            color: white;
+        }
+
+        .comments h5 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .comments-list {
+            height: 50vh;
+            overflow-y: auto;
+            width: 500x; /* Nastavte fixnú šírku podľa potreby */
+            scrollbar-width: none; /* Skryje posuvník pre Firefox */
+        }
+
+        
+
+    /* Skryje posuvník pre ostatné prehliadače */
+        .comments-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .comment {
+            margin-bottom: 0px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .comment p {
+            margin-bottom: 5px;
+        }
+
+        .mt-3 button {
+            width: 100%;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 767.98px) {
+            .comments-list {
+                height: auto;
+                max-height: 200px;
+            }
+        }
+
+        .comment-box{
+            margin-top: 2px;
+            margin-bottom: 2px;
+            color: rgb(209, 209, 209);
+            background-color: #1f1f1f;
+            padding: 10px;
+        }
+
+        hr {
+            border: 1px solid rgb(209, 209, 209);
+        }
+        .full-img span{
+            font-size: 72px;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            top:0;
+            position: absolute;
+            right: 60px;
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+        <h1>GALLERY</h1>
+        <div class="image-gallery">
+            <% for (let i=0; i < images.length; i++) { %>
+                <img src="<%= images[i].url %>" onclick="openFullImg('<%- escape(JSON.stringify(images[i])) %>')">
+                <% }%>
+        </div>
+
+        <div class="full-img" id="full-img">
+            <span onclick=closeFullImg()>x</span>
+            <div class="d-flex flex-column container mt-5">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12">
+                        <img src="" id="fullImg" alt="Instagram post" class="w-100">
+                    </div>
+                    <div class="col-md-4 col-sm-12 mt-4 mt-md-0">
+                        <div class="comments">
+                            <h5>Comments</h5>
+                            <hr>
+                            <div class="comments-list">
+                                    <% for (let i=0; i < commentsData.length; i++) { %>
+                                        <div class="comment-box">
+                                            <strong><%= commentsData[i].name%></strong>
+                                            <div class="comment">
+                                                <p><%= commentsData[i].comment%></p>
+                                            </div>
+                                        </div>
+                                    <% }%>
+                            </div>
+                            <hr>
+                            <form action="/addComment" method="post" class="mt-3">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="comment" placeholder="Add a comment"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Post</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+
+
+        <script>
+            var fullImgBox = document.getElementById("full-img");
+            var fullImg = document.getElementById("fullImg");
+            function openFullImg(picJson) {
+                const pic = JSON.parse(unescape(picJson));
+                fullImgBox.style.display = "flex";
+                fullImg.src = pic.url
+                fetch('/galery/' + pic.id)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Spracujte odpoveď
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(data, 'text/html');
+
+                        // Find the comments list element in the response data
+                        const commentsList = doc.querySelector('.comments-list');
+
+                        // Replace the current comments list with the new one
+                        const currentCommentsList = document.querySelector('.comments-list');
+                        currentCommentsList.parentNode.replaceChild(commentsList, currentCommentsList);
+                    })
+                    .catch(error => {
+                        // Spracujte chybu
+                        console.log('Chyba: ' + error);
+                    });
+            }
+            function closeFullImg() {
+                fullImgBox.style.display = "none"
+                history.pushState({}, '', '/galery');
+            }
+        </script>
+</body>
+
+
+</html>

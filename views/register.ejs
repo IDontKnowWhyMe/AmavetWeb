@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register Page</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+	<!-- Custom CSS -->
+	<style>
+		body {
+			font-family: 'Lato', sans-serif;
+			background-color: #141414;
+		}
+		.register-form {
+			color: white;
+			background-color: #29292bcb;
+			margin-top: 5rem;
+			margin-bottom: 5rem;
+		}
+		label{
+			color: #9b9b9b;
+		}
+		.form-control {
+			border-radius: 0;
+		}
+		.btn {
+			border-radius: 0;
+		}
+
+		.dark-mode-input {
+  			background-color: #36393bf6;
+  			border: none;
+		}
+
+		.dark-mode-btn{
+			background-color: #00b61e;
+			color: rgb(226, 255, 228);
+  			border: none;
+		}
+		.grayText{
+			color: #9b9b9b;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-4 col-md-6 col-sm-8">
+				<div class="card register-form">
+					<div class="card-body">
+						<h3 class="text-center">Register</h3>
+						<form action="/register" method="post">
+                            <% if (messages.error) { %>
+								<div class="alert alert-danger">
+									<strong><%= messages.error %></strong>
+								</div>
+							<%} %>
+							<div class="form-group">
+								<label for="username">Username</label>
+								<input type="text" name="name" class="form-control dark-mode-input" id="username" placeholder="Enter username">
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="email" name="email" class="form-control dark-mode-input" id="email" placeholder="Enter email">
+							</div>
+							<div class="form-group">
+								<label for="password">Password</label>
+								<input type="password" name="password" class="form-control dark-mode-input" id="password" placeholder="Enter password">
+							</div>
+				
+							<button type="submit" class="btn dark-mode-btn btn-block">Register</button>
+						</form>
+						<div class="text-center mt-3 grayText">
+							Already have an account? <a href="/login">Login</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
