@@ -1,4 +1,5 @@
 # AmavetWeb
+"Web site for local AMAVET club"
 Database connected working login and register
 ![image](https://github.com/IDontKnowWhyMe/AmavetWeb/assets/62913230/0c64faf0-e819-4c2e-9f0a-104eb98ef498)
 ![image](https://github.com/IDontKnowWhyMe/AmavetWeb/assets/62913230/90d7f756-89f3-427b-8eac-ebb714e61c58)
